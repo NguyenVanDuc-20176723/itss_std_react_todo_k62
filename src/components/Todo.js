@@ -30,6 +30,28 @@ function Todo() {
   function addItems(obj){
     putItems([...items, obj]);
   }
+  //
+  function handleCheck(checked){
+    const newItems = items.map(item => {
+      if(item.key === checked.key){
+        item.done = !item.done;
+      }
+      return item;
+    })
+    putItems(newItems);
+  }
+  //filter = 'ALL' (default)
+  const [filter, setFilter] = useState('ALL');
+  
+  const displayItems = items.filter(item => {
+    if(filter === 'ALL') return true;
+    if(filter === 'TODO') return !item.done;
+    if(filter === 'DONE') return item.done;
+  })
+  
+  function handleFilterChange(value){
+    setFilter(value);
+  }
   
   return (
     <div className="panel">
@@ -40,17 +62,23 @@ function Todo() {
       <Input
         onAdd = {addItems}
       />
-      
-      {items.map(item => (
+      <Filter
+        onChange = {handleFilterChange}
+        value = {filter}
+      />
+      {displayItems.map(item => (
+        
         <label className="panel-block">
             <TodoItem
               key = {item.key}
               item = {item}
+              onCheck = {handleCheck}
             />
         </label>
       ))}
       <div className="panel-block">
-        {items.length} items
+        {displayItems.length} items
+        
       </div>
     </div>
   );
