@@ -1,3 +1,5 @@
+import {useState} from 'react';
+
 /* 
   【TodoItemコンポーネント】
 　・Todoアイテムを表示する
@@ -5,9 +7,13 @@
 　・チェックボックスにチェックが入っているかアイテムをグレーアウトする
 */
 function TodoItem( {item}  ) {
+  const [check, setCheck] = useState(false);
+  function changeTextColor(){
+    setCheck(!check);
+  }
   return (
-    <label className="panel-block">
-      <input type="checkbox" />
+    <label className="panel-block" class = {check ? 'has-text-grey-light' : ''}>
+      <input type="checkbox" onChange={changeTextColor} />
       {item.text}
     </label>
   );
