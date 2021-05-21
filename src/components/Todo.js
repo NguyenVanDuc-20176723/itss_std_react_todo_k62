@@ -14,27 +14,29 @@ import Filter from './Filter';
 
 /* カスタムフック */
 import useStorage from '../hooks/storage';
-
+import useFbStorage from '../hooks/fbStorage';
 /* ライブラリ */
 import {getKey} from "../lib/util";
 
 function Todo() {
   
-  const [items, putItems, clearItems] = useStorage();
-  
+  //const [items, putItems, clearItems] = useStorage();
+  const [items, addItem, updateItem, clearItems] = useFbStorage();
   function addItems(obj){
-    putItems([...items, obj]);
+    //putItems([...items, obj]);
+    addItem(obj);
     console.log(items);
   }
   //
   function handleCheck(checked){
-    const newItems = items.map(item => {
+    /*const newItems = items.map(item => {
       if(item.key === checked.key){
         item.done = !item.done;
       }
       return item;
     })
-    putItems(newItems);
+    putItems(newItems);*/
+    updateItem(checked);
   }
   //filter = 'ALL' (default)
   const [filter, setFilter] = useState('ALL');
@@ -66,12 +68,14 @@ function Todo() {
         
         <label className="panel-block">
             <TodoItem
-              key = {item.key}
+              key = {item.id}
               item = {item}
               onCheck = {handleCheck}
             />
         </label>
-      ))}
+      ))
+      }
+      
       <div className="panel-block">
         {displayItems.length} items
         
@@ -81,6 +85,7 @@ function Todo() {
           全てのToDoを削除
         </button>
       </div>
+ 
     </div>
   );
 }
