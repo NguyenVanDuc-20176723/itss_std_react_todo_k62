@@ -10,7 +10,7 @@ function Input( {onAdd} ) {
   
   function handleChange(evt){
     setObj({
-      //key: getKey(),
+      key: getKey(),
       text: evt.target.value,
       done: false
     })

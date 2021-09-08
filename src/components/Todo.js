@@ -14,29 +14,29 @@ import Filter from './Filter';
 
 /* カスタムフック */
 import useStorage from '../hooks/storage';
-import useFbStorage from '../hooks/fbStorage';
+// import useFbStorage from '../hooks/fbStorage';
 /* ライブラリ */
 import {getKey} from "../lib/util";
 
 function Todo() {
   
-  //const [items, putItems, clearItems] = useStorage();
-  const [items, addItem, updateItem, clearItems] = useFbStorage();
+  const [items, putItems, clearItems] = useStorage();
+  // const [items, addItem, updateItem, clearItems] = useFbStorage();
   function addItems(obj){
-    //putItems([...items, obj]);
-    addItem(obj);
-    console.log(items);
+    putItems([...items, obj]);
+    // addItem(obj);
+    // console.log(items);
   }
   //
   function handleCheck(checked){
-    /*const newItems = items.map(item => {
+    const newItems = items.map(item => {
       if(item.key === checked.key){
         item.done = !item.done;
       }
       return item;
     })
-    putItems(newItems);*/
-    updateItem(checked);
+    putItems(newItems);
+    // updateItem(checked);
   }
   //filter = 'ALL' (default)
   const [filter, setFilter] = useState('ALL');
